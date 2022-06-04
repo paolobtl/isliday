@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isliday - Report 06-06-2022</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 18px;
+            border: 0;
+        }
+
+        section {
+            margin: 0 2%
+        }
+
+        img {
+            margin: 50px 0px;
+            border: 0.5px black solid;
+            max-width: 50%;
+        }
+
+        footer {
+
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            padding: 40px;
+            background-color: #f5f5f5;
+            font-size: medium;
+            text-align: center;
+        }
+
+        pre {
+            background-color: rgb(253, 243, 231);
+            white-space: pre-wrap;
+            white-space: -moz-pre-wrap;
+            white-space: -o-pre-wrap;
+            word-wrap: break-word;
+        }
+
+        code {
+            font-family: Courier, 'New Courier', monospace;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <article>
+        <section>
+            <h2>Isliday</h2>
+            <h3>Report 04-06-2022</h3>
+            <p>
+                <strong>Problematica riscontrata: </strong>
+                Bounce rate eccessivamente basso dal inizio Maggio 2022.
+            </p>
+        </section>
+        <section>
+            <p>
+                Accedendo al report <strong>Acquisizione > Tutto il traffico > Sorgente mezzo</strong>
+                si vede che il bounce rate, dal 1 Maggio al 3 Giugno, è al <strong>27.33%</strong> e il numero di utenti
+                che hanno effettuato una visita è di <strong>35.570</strong>.
+                La percentuale, relativamente bassa, dà prova dell'esistenza di un problema quando si isola la metrica
+                nel grafico, come da immagine.
+            </p>
+            <hr>
+            <a href="img/Immagine.png" target="_blank" rel="noopener noreferrer">
+                <img src="img/Immagine.png" alt="">
+            </a>
+        </section>
+        <section>
+            La prima ipotesi, e la più comune, è che Google Analytics stia tracciando due volte la visuazlizzazione di
+            pagine.
+            L'ipotesi è corroborata sia dal Tag Assistant che dall'analisi delle richieste di rete.
+            In questo screenshot si noti come vengano, infatti, indicate due visualizzazioni di pagina.
+            <hr>
+            <a href="img/network+gta.png" target="_blank" rel="noopener noreferrer">
+                <img src="img/network+gta.png" alt="">
+            </a>
+        </section>
+        <section>
+            <p>
+                La risoluzione del problema quindi nella rimozione di uno dei due codici di Google Analytics presenti
+                nel codice HTML del sito.
+                <a href="img/HTML.png" target="_blank" rel="noopener noreferrer">
+                    <img src="img/HTML.png" alt="">
+                </a>
+            </p>
+            <p>
+                Si noti che il codice di Google Analytics è stato implementato due volte, probabilmente durante
+                l'installazione del tag di Google Ads.
+            </p>
+            <p>
+                Consiglio di rimuovere entrambi gli script in favore di quello presentato qui sotto:
+
+                <pre>
+                    <code>
+                    &lt;script&gt;async src="https://www.googletagmanager.com/gtag/js?id=UA-221228850-1">&lt;/script&gt;
+                    &lt;script&gt;async src="https://www.googletagmanager.com/gtag/js?id=AW-10857720868">&lt;/script&gt;
+                    
+                    &lt;script&gt;
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+
+                        gtag('config', 'UA-221228850-1');
+                        gtag('config', 'AW-10857720868');
+                    &lt;/script&gt;
+                </code>
+            </pre>
+            </p>
+            <p>
+                In queesto modo saranno presenti sia Google Ads sia Google Analytics
+                utilizzando di fatto un solo script;
+            </p>
+        </section>
+    </article>
+    <footer>
+        Per ulteriori informazioni <a href="mailto:analisi@analyticsitalia.it">analisi@analyticsitalia.it</a>
+    </footer>
+</body>
+
+</html>
