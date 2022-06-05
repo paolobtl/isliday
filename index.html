@@ -13,38 +13,48 @@
             border: 0;
         }
 
-        section {
-            margin: 0 2%
-        }
-
-        img {
-            margin: 50px 0px;
-            border: 0.5px black solid;
-            max-width: 50%;
+        article,
+        footer {
+            margin: 0 2%;
+            display: block;
+            max-width: 850px;
+            margin: 0 auto;
+            padding-right: 20px;
+            padding-left: 20px;
+            background-color: #f5f5f5;
+            text-align: justify;
         }
 
         footer {
-
-            bottom: 0;
-            width: 100%;
-            height: 50px;
-            padding: 40px;
-            background-color: #f5f5f5;
-            font-size: medium;
+            font-size: 0.7em;
+            padding: 5% auto;
+            padding-bottom: 50px;
             text-align: center;
         }
 
-        pre {
-            background-color: rgb(253, 243, 231);
-            white-space: pre-wrap;
-            white-space: -moz-pre-wrap;
-            white-space: -o-pre-wrap;
-            word-wrap: break-word;
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 60%;
+            border: 2px solid rgb(220, 196, 255);
+            -webkit-box-shadow: 18px 13px 37px -27px rgba(0, 5, 64, 1);
+            -moz-box-shadow: 18px 13px 37px -27px rgba(0, 5, 64, 1);
+            box-shadow: 18px 13px 37px -27px rgba(0, 5, 64, 1);
         }
 
+        pre {
+            background-color: #f5f5f5;
+            border:none;
+        }
         code {
-            font-family: Courier, 'New Courier', monospace;
-            font-size: 16px;
+            font-family: Consolas, Monaco, Courier New, Courier, monospace;
+            font-size: 12px;
+            border:none;
+        }
+
+        p {
+            margin: 1.5em 0;
         }
     </style>
 </head>
@@ -67,17 +77,18 @@
                 La percentuale, relativamente bassa, dà prova dell'esistenza di un problema quando si isola la metrica
                 nel grafico, come da immagine.
             </p>
-            <hr>
             <a href="img/Immagine.png" target="_blank" rel="noopener noreferrer">
                 <img src="img/Immagine.png" alt="">
             </a>
         </section>
         <section>
-            La prima ipotesi, e la più comune, è che Google Analytics stia tracciando due volte la visuazlizzazione di
-            pagine.
-            L'ipotesi è corroborata sia dal Tag Assistant che dall'analisi delle richieste di rete.
-            In questo screenshot si noti come vengano, infatti, indicate due visualizzazioni di pagina.
-            <hr>
+            <p>
+                La prima ipotesi, e la più comune, è che Google Analytics stia tracciando due volte la visuazlizzazione
+                di
+                pagine.
+                L'ipotesi è corroborata sia dal Tag Assistant che dall'analisi delle richieste di rete.
+                In questo screenshot si noti come vengano, infatti, indicate due visualizzazioni di pagina.
+            </p>
             <a href="img/network+gta.png" target="_blank" rel="noopener noreferrer">
                 <img src="img/network+gta.png" alt="">
             </a>
@@ -86,41 +97,43 @@
             <p>
                 La risoluzione del problema quindi nella rimozione di uno dei due codici di Google Analytics presenti
                 nel codice HTML del sito.
+            </p>
                 <a href="img/HTML.png" target="_blank" rel="noopener noreferrer">
                     <img src="img/HTML.png" alt="">
                 </a>
-            </p>
+
             <p>
                 Si noti che il codice di Google Analytics è stato implementato due volte, probabilmente durante
                 l'installazione del tag di Google Ads.
             </p>
             <p>
                 Consiglio di rimuovere entrambi gli script in favore di quello presentato qui sotto:
-
-                <pre>
+            </p>
+            <pre>
                     <code>
-                    &lt;script&gt;async src="https://www.googletagmanager.com/gtag/js?id=UA-221228850-1">&lt;/script&gt;
-                    &lt;script&gt;async src="https://www.googletagmanager.com/gtag/js?id=AW-10857720868">&lt;/script&gt;
-                    
-                    &lt;script&gt;
-                        window.dataLayer = window.dataLayer || [];
-                        function gtag(){dataLayer.push(arguments);}
-                        gtag('js', new Date());
+&lt;script&gt;async src="https://www.googletagmanager.com/gtag/js?id=UA-221228850-1">&lt;/script&gt;
+&lt;script&gt;async src="https://www.googletagmanager.com/gtag/js?id=AW-10857720868">&lt;/script&gt;
 
-                        gtag('config', 'UA-221228850-1');
-                        gtag('config', 'AW-10857720868');
-                    &lt;/script&gt;
+&lt;script&gt;
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-221228850-1');
+    gtag('config', 'AW-10857720868');
+&lt;/script&gt;
                 </code>
             </pre>
-            </p>
+
             <p>
                 In queesto modo saranno presenti sia Google Ads sia Google Analytics
-                utilizzando di fatto un solo script;
+                utilizzando di fatto un solo script
             </p>
+            <br>
         </section>
     </article>
     <footer>
-        Per ulteriori informazioni <a href="mailto:analisi@analyticsitalia.it">analisi@analyticsitalia.it</a>
+    Per ulteriori informazioni <a href="mailto:analisi@analyticsitalia.it">analisi@analyticsitalia.it</a>
     </footer>
 </body>
 
